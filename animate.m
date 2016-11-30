@@ -37,7 +37,7 @@ function f = animate(filename, SegLen, heightFactor)
                 height = floor(1 + heightFactor*SegLen);
                 for m=-height:height
                     for n=-height:height
-                        if (X+m >= 1 && Y+n >= 1 && X+m <= Rows && Y+n <= Cols)
+                        if (abs(m) > abs(n) && (X+m >= 1 && Y+n >= 1 && X+m <= Rows && Y+n <= Cols))
                             I(X+m,Y+n,c) = COLORS(index,c);
                         end
                     end
