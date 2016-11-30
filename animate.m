@@ -1,6 +1,6 @@
 function f = animate(filename)
     % Init some constants
-    BLACK = [0 8 27];
+    BLACK = [0 0 0];
     BLUE = [0 102 255];
     WHITE = [255 254 254];
     YELLOW = [210 210 0];
