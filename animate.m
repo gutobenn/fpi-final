@@ -1,4 +1,4 @@
-function f = animate(filename)
+function f = animate(filename, SegLen)
     % Init some constants
     BLACK = [0 0 0];
     BLUE = [0 102 255];
@@ -9,6 +9,11 @@ function f = animate(filename)
     Rows = 513; % TODO: or 512?
     Cols = 513;
     Channels = 3;
+    
+    if rem(SegLen,6) ~= 0
+        disp('SegLen must be multiple of 6!')
+        return;
+    end
     
     % Create black image
     I(1:Rows, 1:Cols, 1:Channels) = 127;
@@ -24,7 +29,8 @@ function f = animate(filename)
             X = uint16(1 + fscanf(fileID, '%f', 1));
             Y = uint16(1 + fscanf(fileID, '%f', 1));
             % and then draw it
-            index = round(rem(j,6)+1);
+            %index = round(rem(j,6)+1);
+            index = floor(rem(j,SegLen) * (6/SegLen)+1);
             for c=1:Channels
                 I(X,Y,c) = COLORS(index,c);
             end
