@@ -1,4 +1,4 @@
-function f = animate(filename, SegLen, heightFactor)
+function f = animate(filename, SegLen)
     % Init some constants
     BLACK = [0 0 0];
     BLUE = [0 102 255];
@@ -32,16 +32,10 @@ function f = animate(filename, SegLen, heightFactor)
             %index = round(rem(j,6)+1);
             index = floor(rem(j,SegLen) * (6/SegLen)+1);
             for c=1:Channels
-                %I(X,Y,c) = COLORS(index,c);
+                I(X,Y,c) = COLORS(index,c);
                 % with neighborhood-8
-                height = floor(1 + heightFactor*SegLen);
-                for m=-height:height
-                    for n=-height:height
-                        if (X+m >= 1 && Y+n >= 1 && X+m <= Rows && Y+n <= Cols)
-                            I(X+m,Y+n,c) = COLORS(index,c);
-                        end
-                    end
-                end
+                for m=1:floor(1+(0.5*SegLen))
+                    for n=1:fl
             end
         end
     end
