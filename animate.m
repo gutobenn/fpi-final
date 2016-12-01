@@ -6,8 +6,8 @@ function f = animate(filename, SegLen, heightFactor)
     YELLOW = [210 210 0];
     COLORS = [BLACK; BLUE; BLUE; WHITE; YELLOW; YELLOW];
     
-    Rows = 513; % TODO: or 512?
-    Cols = 513;
+    Rows = 512;
+    Cols = 512;
     Channels = 3;
     
     if rem(SegLen,6) ~= 0
@@ -28,12 +28,10 @@ function f = animate(filename, SegLen, heightFactor)
             % Read current point coordinates
             X = uint16(2 + fscanf(fileID, '%f', 1));
             Y = uint16(2 + fscanf(fileID, '%f', 1));
-            % and then draw it
-            %index = round(rem(j,6)+1);
+            % and then draw it (with a circular (actually, triangular)
+            % neighborhood)
             index = floor(rem(j,SegLen) * (6/SegLen)+1);
             for c=1:Channels
-                %I(X,Y,c) = COLORS(index,c);
-                % with neighborhood-8
                 height = floor(1 + heightFactor*SegLen);
                 for m=-height:height
                     for n=-height:height
@@ -46,8 +44,6 @@ function f = animate(filename, SegLen, heightFactor)
         end
     end
     fclose(fileID);
-    
-    % TODO: include neighborhood to make it stronger?
     
     imshow(I);
 end

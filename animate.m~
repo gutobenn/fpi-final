@@ -1,4 +1,4 @@
-function f = animate(filename, SegLen)
+function f = animate(filename, SegLen, heightFactor)
     % Init some constants
     BLACK = [0 0 0];
     BLUE = [0 102 255];
@@ -28,20 +28,22 @@ function f = animate(filename, SegLen)
             % Read current point coordinates
             X = uint16(2 + fscanf(fileID, '%f', 1));
             Y = uint16(2 + fscanf(fileID, '%f', 1));
-            % and then draw it
-            %index = round(rem(j,6)+1);
+            % and then draw it (with a circular (actually, triangular)
+            % neighborhood)
             index = floor(rem(j,SegLen) * (6/SegLen)+1);
             for c=1:Channels
-                I(X,Y,c) = COLORS(index,c);
-                % with neighborhood-8
-                for m=1:floor(1+(0.5*SegLen))
-                    for n=1:fl
+                height = floor(1 + heightFactor*SegLen);
+                for m=-height:height
+                    for n=-height:height
+                        if (abs(m) > abs(n) && (X+m >= 1 && Y+n >= 1 && X+m <= Rows && Y+n <= Cols))
+                            I(X+m,Y+n,c) = COLORS(index,c);
+                        end
+                    end
+                end
             end
         end
     end
     fclose(fileID);
-    
-    % TODO: include neighborhood to make it stronger?
     
     imshow(I);
 end
