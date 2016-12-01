@@ -28,4 +28,5 @@ Depois, para cada uma das linhas há um inteiro P, indicando quantos pontos faze
 ## 3º PASSO: GERANDO A ANIMAÇÃO
 No MATLAB, execute o script animate.m, passando por parâmetro o nome do arquivo gerado no passo anterior, o SegLen e o widthFactor
 
-```animate('streamlines.txt', 18, 0.5)```
+Não otimizado (métood rapido, pra ter uma pre-visualização)```animate('streamlines.txt', 18, 0.5, 0)```
+Otimizado (demorado, mas produz um otimo resultado)```animate('streamlines.txt', 18, 0.5, 1)```

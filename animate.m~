@@ -1,9 +1,9 @@
-function f = animate(filename, SegLen, widthFactor, optimized)
+function f = animate(filename, SegLen, widthFactor)
     % Init some constants
     BLACK = [0 0 0];
-    BLUE = [0.2 0.2 1];%[0 102 255];
+    BLUE = [0 102 255];
     WHITE = [255 254 254];
-    YELLOW = [1.0 0.8 0.0]; %[210 210 0];
+    YELLOW = [210 210 0];
     COLORS = [BLACK; BLUE; BLUE; WHITE; YELLOW; YELLOW];
     
     Rows = 512;
@@ -34,33 +34,32 @@ function f = animate(filename, SegLen, widthFactor, optimized)
         end
         
         % simulate three draws and find out which is the best
-        min_counter = Rows * Cols;
+        best_found = Rows * Cols;
         best_offset = 0;
-        if optimized > 0
-            for offset=-1:1
-                counter = 0;
-                disp(i)
-                for j=1:P
-                    X = points(j,1);
-                    Y = points(j,2);
-                    index = floor(rem(j+offset,SegLen) * (6/SegLen)+1);
-                    for c=1:Channels
-                        width = floor(1 + widthFactor*SegLen);
-                        for m=-width:width
-                            for n=-width:width
-                                if (abs(m) > abs(n) && (X+m >= 1 && Y+n >= 1 && X+m <= Rows && Y+n <= Cols))
-                                    if ( (( isequal(COLORS(index),WHITE) || isequal(COLORS(index),YELLOW)) && ( isequal(I(X+m, Y+n), WHITE) || isequal(I(X+m, Y+n),YELLOW))) || ((isequal(COLORS(index),BLACK) || isequal(COLORS(index),BLUE)) && (isequal(I(X+m, Y+n),BLACK) || isequal(I(X+m, Y+n),BLUE) )) )
-                                        counter = counter + 1;
-                                    end
+        for offset=-1:1
+            counter = 0;
+            for j=1:P
+                X = points(j,1);
+                Y = points(j,2);
+                index = floor(rem(j+offset,SegLen) * (6/SegLen)+1);
+                for c=1:Channels
+                    height = floor(1 + widthFactor*SegLen);
+                    for m=-height:height
+                        for n=-height:height
+                            if (abs(m) > abs(n) && (X+m >= 1 && Y+n >= 1 && X+m <= Rows && Y+n <= Cols))
+                                if ( ((COLORS(index) == WHITE || COLORS(index) == YELLOW)                               && (I(X+m, Y+n) == WHITE || I(X+m, Y+n) == YELLOW)) 
+                                     || ((COLORS(index) == BLACK || COLORS(index) == BLUE) 
+                                      && (I(X+m, Y+n) == BLACK || I(X+m, Y+n) == BLUE))  )
+                                    counter++;
                                 end
                             end
                         end
                     end
                 end
-                if counter < min_counter
-                    min_counter = counter;
-                    best_offset = offset;
-                end
+            end
+            if counter < best_counter
+                best_counter = counter;
+                best_offset = offset;
             end
         end
         
@@ -70,9 +69,9 @@ function f = animate(filename, SegLen, widthFactor, optimized)
             Y = points(j,2);
             index = floor(rem(j+best_offset,SegLen) * (6/SegLen)+1);
             for c=1:Channels
-                width = floor(1 + widthFactor*SegLen);
-                for m=-width:width
-                    for n=-width:width
+                height = floor(1 + widthFactor*SegLen);
+                for m=-height:height
+                    for n=-height:height
                         if (abs(m) > abs(n) && (X+m >= 1 && Y+n >= 1 && X+m <= Rows && Y+n <= Cols))
                             I(X+m,Y+n,c) = COLORS(index,c);
                         end
