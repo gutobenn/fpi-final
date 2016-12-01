@@ -24,10 +24,11 @@ function f = animate(filename, SegLen, widthFactor)
     for i=1:N
         % Read the number of points for current streamline
         P = fscanf(fileID, '%d', 1);
+        
         for j=1:P
             % Read current point coordinates
-            X = uint16(2 + fscanf(fileID, '%f', 1));
-            Y = uint16(2 + fscanf(fileID, '%f', 1));
+            X = uint16(1 + fscanf(fileID, '%f', 1));
+            Y = uint16(1 + fscanf(fileID, '%f', 1));
             % and then draw it (with a circular (actually, triangular)
             % neighborhood)
             index = floor(rem(j,SegLen) * (6/SegLen)+1);
