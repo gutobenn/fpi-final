@@ -66,23 +66,22 @@ function f = animate(filename, SegLen, widthFactor, optimized, colorset)
                         Y = points(j,2);
                         index = colorset*6 + floor(rem(j,adjustedSegLen) * (6/adjustedSegLen)+1);
                         for c=1:Channels
-                            width = floor(1 + widthFactor*SegLen);
+                            width = floor(1 + widthFactor*adjustedSegLen);
                             for m=-width:width
                                 for n=-width:width
                                     if (abs(m) > abs(n) && (X+m >= 1 && Y+n >= 1 && X+m <= Rows && Y+n <= Cols))
+                                        % TODO fazer funcionar com outros
+                                        % colorsets. Só ta funcionando com
+                                        % o primeiro pq as cores tao hardcoded
                                         %if ( (( isequal(COLORS(index,c),WHITE) || isequal(COLORS(index,c),YELLOW)) && ( isequal(I(X+m, Y+n), WHITE) || isequal(I(X+m, Y+n),YELLOW))) || ((isequal(COLORS(index),BLACK) || isequal(COLORS(index),BLUE)) && (isequal(I(X+m, Y+n),BLACK) || isequal(I(X+m, Y+n),BLUE) )) )
-                                        tone1 = COLORS(1,c);
-                                        tone2 = COLORS(2,c);
-                                        tone3 = COLORS(4,c);
-                                        tone4 = COLORS(6,c);
-                                        if ( (( isequal(COLORS(index,c),tone3) || isequal(COLORS(index,c),tone4)) && ( isequal(I(X+m, Y+n), tone3) || isequal(I(X+m, Y+n),tone4))) || ((isequal(COLORS(index),tone1) || isequal(COLORS(index),tone2)) && (isequal(I(X+m, Y+n),tone1) || isequal(I(X+m, Y+n),tone2) )) )
+                                        if ( (( isequal(COLORS(index,c),WHITE) || isequal(COLORS(index,c),YELLOW)) && ( isequal(I(X+m, Y+n), WHITE) || isequal(I(X+m, Y+n),YELLOW))) || ((isequal(COLORS(index),BLACK) || isequal(COLORS(index),BLUE)) && (isequal(I(X+m, Y+n),BLACK) || isequal(I(X+m, Y+n),BLUE) )) )
                                           counter = counter + 1;
                                         end
                                     end
                                 end
                             end
                         end
-                        %disp( sprintf( 'offset %d  counter %d   best_offset %d   min_counter %d', offset, counter, best_offset_found, min_counter) );
+                        disp( sprintf( 'offset %d  counter %d   best_offset %d   min_counter %d', offset, counter, best_offset_found, min_counter) );
 
                     end
                     if(counter < min_counter)
@@ -98,7 +97,7 @@ function f = animate(filename, SegLen, widthFactor, optimized, colorset)
                     Y = points(j,2);
                     index = colorset*6 + floor(rem(j,bestSegLen) * (6/bestSegLen)+1);
                     for c=1:Channels
-                        width = floor(1 + widthFactor*SegLen);
+                        width = floor(1 + widthFactor*bestSegLen);
                         for m=-width:width
                             for n=-width:width
                                 if (abs(m) > abs(n) && (X+m >= 1 && Y+n >= 1 && X+m <= Rows && Y+n <= Cols))
