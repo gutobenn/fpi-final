@@ -41,3 +41,4 @@ function f = fourGrayRapFinding(L0, RAP)
     newRap = [labColor(1) L1 L2 L3];
     disp('newRap');
     disp(newRap);
+    f = newRap;
