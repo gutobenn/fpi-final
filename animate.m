@@ -1,4 +1,4 @@
-function f = animate(filename, SegLen, widthFactor, optimized, colorset)
+function f = animate(filename, SegLen, widthFactor, optimized, colorset, customcolor)
     % Init some constants
     BLACK = [0 0 0];
     BLUE = [0.2 0.2 1];
@@ -15,12 +15,18 @@ function f = animate(filename, SegLen, widthFactor, optimized, colorset)
     CYAN = [0 1 1];
     RED = [0.8 0 0.2];
     
-    COLORS = [[BLACK; BLUE; BLUE; WHITE; YELLOW; YELLOW]
-              [BLACK; BLUE1; BLUE1; WHITE; GREEN1; GREEN1]
-              [BLACK; ROXO; ROXO; WHITE; GREEN; GREEN]
-              [BLACK; BLUE3; BLUE3; WHITE; GREEN3; GREEN3]
-              [BLACK; ROXO4; ROXO4; WHITE; YELLOW4; YELLOW4]
-              [BLACK; RED; RED; WHITE; CYAN; CYAN]];
+    if(colorset > 0)
+        COLORS = [[BLACK; BLUE; BLUE; WHITE; YELLOW; YELLOW]
+                  [BLACK; BLUE1; BLUE1; WHITE; GREEN1; GREEN1]
+                  [BLACK; ROXO; ROXO; WHITE; GREEN; GREEN]
+                  [BLACK; BLUE3; BLUE3; WHITE; GREEN3; GREEN3]
+                  [BLACK; ROXO4; ROXO4; WHITE; YELLOW4; YELLOW4]
+                  [BLACK; RED; RED; WHITE; CYAN; CYAN]];
+        colorset = colorset - 1;
+    else
+        [c1, c2, c3] = fourColorRapFinding([50/255 50/255 50/255], [0 25 100 75], 180);
+        colorset = 0;
+    end
         
     Rows = 512;
     Cols = 512;
