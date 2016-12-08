@@ -1,4 +1,4 @@
-function f = fourGrayRapFinding(L0, RAP)
+function [f,g] = fourGrayRapFinding(L0, RAP)
 
     % Passar um vetor [R/255 G/255 B/255] para L0
     % Passar [0 25 100 75] para RAP
@@ -42,3 +42,4 @@ function f = fourGrayRapFinding(L0, RAP)
     disp('newRap');
     disp(newRap);
     f = newRap;
+    g = iNearest;
