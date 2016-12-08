@@ -25,7 +25,7 @@ function f = animate(filename, SegLen, widthFactor, optimized, colorset, customc
         colorset = colorset - 1;
     else
         [c1, c2, c3] = fourColorRapFinding(customcolor, [0 25 100 75], 180);
-        COLORS = [c1; c2; c2; c3; customcolor; customcolor];
+        COLORS = [BLACK; customcolor; customcolor; WHITE; c3; c3];
         colorset = 0;
     end
         
