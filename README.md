@@ -26,7 +26,7 @@ A primeira linha contém um inteiro N, que é o número de streamlines geradas.
 Depois, para cada uma das linhas há um inteiro P, indicando quantos pontos fazem parte da streamline. Para cada um desses pontos, há uma linha de dois valores (X e Y), que são as coordenadas do ponto.
 
 ## 3º PASSO: GERANDO A ANIMAÇÃO
-No MATLAB, execute o script animate.m, passando por parâmetro o nome do arquivo gerado no passo anterior, o SegLen, widthFactor e conjunto de cores
+No MATLAB, execute o script animate.m, passando por parâmetro o nome do arquivo gerado no passo anterior, o SegLen, widthFactor, conjunto de cores (0 caso queira gerar um conjunto usando o fourcolorrapfinding), e cor inicial (0 caso queira usar algum set pre-definido).
 
-Não otimizado (métood rapido, pra ter uma pre-visualização)```animate('streamlines.txt', 18, 0.5, 0, 0)```
-Otimizado (demorado, mas produz um otimo resultado)```animate('streamlines.txt', 18, 0.5, 1, 0)```
+Não otimizado (método rapido, pra ter uma pre-visualização)```animate('streamlines.txt', 18, 0.5, 0, 1, 0)```
+Otimizado (demorado, mas produz um resultado ótimo)```animate('streamlines.txt', 18, 0.5, 1, 1, 0)```
