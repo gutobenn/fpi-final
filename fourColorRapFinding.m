@@ -18,15 +18,20 @@ function [f,g,h] = fourColorRapFinding(C0, RAP, degree)
     
     if (iNearest == 0 || iNearest == 2) && degree == 180
        %LabC2 e LabC3
+        LabC2(2) = -LabC2(2)
         LabC2(3) = -LabC2(3)
+        LabC3(2) = -LabC3(2)
         LabC3(3) = -LabC3(3)
     else
         %LabC1 e LabC2
+        LabC1(2) = -LabC1(2)
         LabC1(3) = -LabC1(3)
+        LabC2(2) = -LabC2(2)
         LabC2(3) = -LabC2(3)
     end
     
     disp('C1:');
+    disp(LabC1);
     C1 = lab2rgb(LabC1);
     for i = 1:3
         if C1(i) < 0

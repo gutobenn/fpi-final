@@ -34,12 +34,16 @@ function [f,g] = fourGrayRapFinding(L0, RAP)
     disp('iNearest');
     disp(iNearest);
     
-    L1 = RAP(mod((iNearest-1+1),4)+1);
-    L2 = RAP(mod((iNearest-1+2),4)+1);
-    L3 = RAP(mod((iNearest-1+3),4)+1);
-    
-    newRap = [labColor(1) L1 L2 L3];
-    disp('newRap');
-    disp(newRap);
-    f = newRap;
+    %L1 = RAP(mod((iNearest-1+1),4)+1);
+    %L2 = RAP(mod((iNearest-1+2),4)+1);
+    %L3 = RAP(mod((iNearest-1+3),4)+1);
+    if iNearest == 1 || iNearest == 3
+        RAP(iNearest+1) = labColor(1);
+    end
+    %newRap = [labColor(1) L1 L2 L3];
+    %disp('newRap');
+    %disp(newRap);
+    disp('RAP');
+    disp(RAP);
+    f = RAP;
     g = iNearest;
